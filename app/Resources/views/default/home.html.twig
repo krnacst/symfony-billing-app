@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Üdvözöllek a weboldalon!</h1>
+    <p>Ez a weboldal egy felvételi feladat miatt jött létre, ahol számlázási címeket lehet elmenteni, szerkeszteni, törölni, valamint megrendelést leadni a már elmentett számlázási címekkel vagy új számlázási címmel.</p>
+    <ul>
+        <li>Számlázási címek hozzáadása, szerkesztése, törlése: <a href="{{ path("address_create") }}">Számlázási címeim</a></li>
+        <li>Megrendelés már meglévő vagy új számlázási címre: <a href="{{ path("order_index") }}">Megrendelés</a></li>
+        <li>Megrendelések listájának megtekintése: <a href="{{ path("order_list") }}">Megrendelések listázása</a></li>
+    </ul>
+    <p>Készítette: <a href="https://github.com/krnacst" target="_blank">Krnács Tamás</a></p>
+{% endblock %}

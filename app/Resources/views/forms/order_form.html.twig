@@ -1,0 +1,108 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <ul class="prices">
+        <span class="text-muted">(Ez csak egy beégetett összeg az összkép miatt. Nincs jelentősége.)</span>
+        <li>Nettó végösszeg: <span class="price">17,990 Ft</span></li>
+        <li>Áfa összege: <span class="price">4,857 Ft</span></li>
+        <li>Bruttó végösszeg: <span class="price red">22,847 Ft</span></li>
+    </ul>
+
+    {{ form_start(form) }}
+        {{ form_label(form.addressList) }}
+        {{ form_widget(form.addressList) }}
+        <br/>
+        <div id="newAddressForm">
+            <h4>ÚJ SZÁMLÁZÁSI CÍM</h4>
+            <hr/>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_label(form.newAddress.type) }}
+                    {{ form_widget(form.newAddress.type) }}
+                    {{ form_errors(form.newAddress.type) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_label(form.newAddress.name) }}
+                    {{ form_widget(form.newAddress.name) }}
+                    {{ form_errors(form.newAddress.name) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_label(form.newAddress.phone) }}
+                    {{ form_widget(form.newAddress.phone) }}
+                    {{ form_errors(form.newAddress.phone) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_label(form.newAddress.taxNumber) }}
+                    {{ form_widget(form.newAddress.taxNumber) }}
+                    {{ form_errors(form.newAddress.taxNumber) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_label(form.newAddress.country) }}
+                    {{ form_widget(form.newAddress.country) }}
+                    {{ form_errors(form.newAddress.country) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_label(form.newAddress.postCode) }}
+                    {{ form_widget(form.newAddress.postCode) }}
+                    {{ form_errors(form.newAddress.postCode) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_label(form.newAddress.city) }}
+                    {{ form_widget(form.newAddress.city) }}
+                    {{ form_errors(form.newAddress.city) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_label(form.newAddress.address) }}
+                    {{ form_widget(form.newAddress.address) }}
+                    {{ form_errors(form.newAddress.address) }}
+                </div>
+            </div>
+        </div>
+        {{ form_row(form.aszf) }}
+        <p class="required-info">A *-al jelölt mezők kitöltése kötelező!</p>
+        <div class="row-center">
+            {{ form_widget(form.order, {'label': 'Megrendelés', 'attr': {'class': 'btn-danger'}}) }}
+        </div>
+        {{ form_row(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var billingInfoDiv = $('#newAddressForm');
+        $('#address_list_form_addressList').on('change', function () {
+            var formInputs = billingInfoDiv.find('input, select ');
+            var currentValue = $(this).val();
+
+            function addRequired() {
+                formInputs.each(function () {
+                    var input = $(this);
+                    if (input.data('required')) {
+                        input.prop('required', true);
+                    }
+                })
+            }
+
+            function removeRequired() {
+                formInputs.each(function () {
+                    var input = $(this);
+                    input.prop('required', false);
+                })
+            }
+
+            if (currentValue === '' || typeof currentValue === 'undefined') {
+                billingInfoDiv.show();
+                addRequired();
+            } else {
+                billingInfoDiv.hide();
+                removeRequired();
+            }
+        }).change();
+    </script>
+{% endblock %}

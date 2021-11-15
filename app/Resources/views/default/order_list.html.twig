@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h4>Rendelések listája: <span class="badge badge-pill badge-secondary">{{ orders|length }} db</span></h4>
+    <table class="table table-striped" style="text-align:center;">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Rendelés sorszáma</th>
+                <th scope="col">Típus</th>
+                <th scope="col">Név</th>
+                <th scope="col">Telefonszám</th>
+                <th scope="col">Adószám</th>
+                <th scope="col">Ország</th>
+                <th scope="col">Irányítószám</th>
+                <th scope="col">Város</th>
+                <th scope="col">Utca</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if orders|length == 0 %}
+                <tr>
+                    <td colspan="9">Nincs egy megrendelés sem!</td>
+                </tr>
+            {% endif %}
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.type }}</td>
+                    <td>{{ order.name }}</td>
+                    <td>
+                        {% if order.phone == NULL %}
+                            -
+                        {% else %}
+                            {{ order.phone }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if order.taxNumber == NULL %}
+                            -
+                        {% else %}
+                            {{ order.taxNumber }}
+                        {% endif %}
+                    </td>
+                    <td>{{ order.country }}</td>
+                    <td>{{ order.postCode }}</td>
+                    <td>{{ order.city }}</td>
+                    <td>{{ order.address }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

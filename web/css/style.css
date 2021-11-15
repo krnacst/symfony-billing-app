@@ -1,0 +1,33 @@
+label.required:after {
+    content: " *";
+    color: red;
+}
+
+p.required-info {
+    color: red;
+    text-align: center;
+}
+
+a:link, a:hover, a:visited, a:active {
+    text-decoration: none;
+}
+
+ul.prices {
+    background:rgb(219, 219, 219);
+    list-style: none;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+span.price {
+    font-weight: bold;
+}
+
+span.price.red {
+    color: #dc3545;
+}
+
+.row-center {
+    text-align: center;
+    padding: 10px 0;
+}

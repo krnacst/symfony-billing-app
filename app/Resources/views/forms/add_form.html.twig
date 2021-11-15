@@ -1,0 +1,20 @@
+{% extends 'default/index.html.twig' %}
+
+{% block addForm %}
+    <h4>Új számlázási cím létrehozása:</h4>
+    {{ form_start(form) }}
+        {{ form_row(form.type) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.taxNumber) }}
+        {{ form_row(form.country) }}
+        {{ form_row(form.postCode) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.address) }}
+        <p class="required-info">A *-al jelölt mezők kitöltése kötelező!</p>
+        <div class="row-center">
+            {{ form_widget(form.submit, {'label': 'Új cím felvétele', 'attr': {'class': 'btn btn-danger'}}) }}
+        </div>
+        {{ form_row(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
+{% endblock %}

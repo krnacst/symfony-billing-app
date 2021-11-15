@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}    
+    {% block addForm %}{% endblock %}
+    {% block editForm %}{% endblock %}
+
+    <h4>Számlázási címeim: <span class="badge badge-pill badge-secondary">{{ addresses|length }} db</span></h4>
+    <table class="table table-striped" style="text-align:center;">
+        <thead class="thead-light">
+            <tr>
+            <th scope="col">Típus</th>
+            <th scope="col">Név</th>
+            <th scope="col">Telefonszám</th>
+            <th scope="col">Adószám</th>
+            <th scope="col">Ország</th>
+            <th scope="col">Irányítószám</th>
+            <th scope="col">Város</th>
+            <th scope="col">Utca</th>
+            <th scope="col">Műveletek</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if addresses|length == 0 %}
+                <tr>
+                    <td colspan="9">Nincs mentett számlázási cím!</td>
+                </tr>
+            {% endif %}
+            {% for address in addresses %}
+                <tr>
+                    <td>{{ address.type }}</td>
+                    <td>{{ address.name }}</td>
+                    <td>
+                        {% if address.phone == NULL %}
+                            -
+                        {% else %}
+                            {{ address.phone }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if address.taxNumber == NULL %}
+                            -
+                        {% else %}
+                            {{ address.taxNumber }}
+                        {% endif %}
+                    </td>
+                    <td>{{ address.country }}</td>
+                    <td>{{ address.postCode }}</td>
+                    <td>{{ address.city }}</td>
+                    <td>{{ address.address }}</td>
+                    <td>
+                        <a href="{{ path('address_edit', {'id': address.id}) }}"><i class="fas fa-pencil-alt" style="color:#00bfff;"></i></a>
+                        <a href="{{ path('address_remove', {'id': address.id}) }}"><i class="fas fa-trash-alt" style="color:red;"></i></a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('#address_form_type').on('change', function () {
+            var currentValue = $(this).val();
+
+            if(currentValue === 'Céges'){
+                $("#address_form_taxNumber").prop('required', true);
+            } else {
+                $("#address_form_taxNumber").prop('required', false);
+            }
+        }).change();
+    </script>
+{% endblock %}

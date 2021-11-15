@@ -1,0 +1,30 @@
+{% extends 'default/index.html.twig' %}
+
+{% block editForm %}
+    <h4>Számlázási cím módosítása</h4>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {{ form_start(form) }}
+        {{ form_row(form.type) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.taxNumber) }}
+        {{ form_row(form.country) }}
+        {{ form_row(form.postCode) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.address) }}
+        <p class="required-info">A *-al jelölt mezők kitöltése kötelező!</p>
+        <div class="row-center">
+            {{ form_widget(form.submit, {'label': 'Módosítások mentése', 'attr': {'class': 'btn-success'}}) }}
+            <a href="{{ path('address_create') }}">{{ form_widget(form.cancel, {'label': 'Mégse', 'attr': {'class': 'btn-danger'}}) }}</a>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
